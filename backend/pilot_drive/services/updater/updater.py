@@ -16,6 +16,7 @@ from pilot_drive.master_queue import MasterEventQueue, EventType
 from .constants import UpdateCommands, PipRegex, UPDATE_RECORD_PATH
 from ..abstract_service import AbstractService
 from ..settings import Settings
+from security import safe_command
 
 
 class JsonPullFailedException(Exception):
@@ -165,8 +166,7 @@ class Updater(AbstractService):
         self.logger.info(f'Attempting to update PILOT Drive to "{version}"...')
 
         index_url = self.__update_settings["indexUrl"]
-        update = subprocess.run(
-            [
+        update = safe_command.run(subprocess.run, [
                 sys.executable,
                 "-m",
                 "pip",

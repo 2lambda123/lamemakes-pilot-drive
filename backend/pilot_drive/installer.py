@@ -26,6 +26,7 @@ from pilot_drive.constants import (
 
 from pilot_drive.services.phone.constants import PhoneTypes
 from pilot_drive.services.vehicle.constants import PORT_PATH_VALIDATOR
+from security import safe_command
 
 # Executables directory
 BIN_DIR = "/usr/local/bin"
@@ -149,8 +150,7 @@ class Installer:  # pylint: disable=too-many-public-methods
         :raises: FailedToExecuteCommandException when the executed command returns and error
         """
 
-        bash_result = subprocess.run(
-            command, shell=True, capture_output=True, text=True, check=False
+        bash_result = safe_command.run(subprocess.run, command, shell=True, capture_output=True, text=True, check=False
         )
         if bash_result.stderr:
             raise FailedToExecuteCommandException(
