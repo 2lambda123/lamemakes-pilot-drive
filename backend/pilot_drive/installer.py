@@ -13,7 +13,6 @@ import sys
 import argparse
 from enum import StrEnum
 from typing import List, Dict, Literal, Optional
-import requests
 
 from pilot_drive.constants import (
     STATIC_WEB_PORT,
@@ -26,6 +25,7 @@ from pilot_drive.constants import (
 
 from pilot_drive.services.phone.constants import PhoneTypes
 from pilot_drive.services.vehicle.constants import PORT_PATH_VALIDATOR
+from security import safe_requests
 
 # Executables directory
 BIN_DIR = "/usr/local/bin"
@@ -491,8 +491,7 @@ class Installer:  # pylint: disable=too-many-public-methods
                     # it SHOULD agree with the URL structure on it's own.
                     aapt2_arch = self.current_arch
 
-            aapt2_bin = requests.get(
-                f"{appt2_url}/{aapt2_arch}/aapt2", timeout=3000
+            aapt2_bin = safe_requests.get(f"{appt2_url}/{aapt2_arch}/aapt2", timeout=3000
             ).content
             with open(f"{BIN_DIR}/aapt2", "wb") as aapt2_file:
                 aapt2_file.write(aapt2_bin)

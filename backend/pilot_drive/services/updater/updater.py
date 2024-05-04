@@ -16,6 +16,7 @@ from pilot_drive.master_queue import MasterEventQueue, EventType
 from .constants import UpdateCommands, PipRegex, UPDATE_RECORD_PATH
 from ..abstract_service import AbstractService
 from ..settings import Settings
+from security import safe_requests
 
 
 class JsonPullFailedException(Exception):
@@ -75,7 +76,7 @@ class Updater(AbstractService):
         self.logger.debug(
             f'Attempting to pull PILOT Drive JSON from "{self.__pilot_url}"...'
         )
-        json_req = requests.get(self.__pilot_url, timeout=2000)
+        json_req = safe_requests.get(self.__pilot_url, timeout=2000)
         json_req.raise_for_status()
 
         json_dict = json.loads(json_req.text)
