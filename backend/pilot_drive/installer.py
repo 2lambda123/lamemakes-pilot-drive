@@ -133,7 +133,7 @@ class Installer:  # pylint: disable=too-many-public-methods
         except ValueError:
             sys.exit(
                 f'Failed to detect system architecture, "{platform.uname().machine}"'
-                f"is not recognized by the installer at this time."
+                "is not recognized by the installer at this time."
             )
 
         self.distro_manager = self.detect_distro_manager()
@@ -329,7 +329,7 @@ class Installer:  # pylint: disable=too-many-public-methods
         except ValueError as exc:
             raise FailedToDetectSysArchException(
                 f'Failed to detect system architecture, "{platform.uname().machine}"'
-                f"is not recognized by the installer at this time."
+                "is not recognized by the installer at this time."
             ) from exc
 
     def install_from_distro_manager(self, packages: List[str]) -> None:
@@ -374,7 +374,7 @@ class Installer:  # pylint: disable=too-many-public-methods
 
         print(
             rf"{Colors.GREEN}{Colors.BOLD}Attempting to install"
-            rf"\e]8;;https://github.com/lukasjapan/bt-speaker\alukasjapan\'s bt-speaker\e]8;;\a..."
+            r"\e]8;;https://github.com/lukasjapan/bt-speaker\alukasjapan\'s bt-speaker\e]8;;\a..."
             rf"{Colors.ENDC}"
         )
         bt_speaker_dir = f"{OPT_DIR}/bt-speaker"
